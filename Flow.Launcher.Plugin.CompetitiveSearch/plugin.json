@@ -1,0 +1,13 @@
+{
+    "ID": "CompetitiveSearch",
+    "Name": "Competitive Search",
+    "Description": "Search Codeforces/LeetCode data from Flow Launcher",
+    "Author": "Atharv Singh",
+    "Version": "1.0.0",
+    "Language": "javascript",
+    "Website": "https://github.com/Atharvwasthere/Flow.Launcher.Plugin.CompetitiveSearch",
+    "IcoPath": "./assets/icon.png",
+    "ExecuteFileName": "node",
+    "ExecuteFilePath": "main.js"
+  }
+  
