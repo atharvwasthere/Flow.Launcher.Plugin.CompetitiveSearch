@@ -1,0 +1,42 @@
+name: Build and Release Flow Plugin
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - .github/workflows/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '23.9.0'
+
+      - name: Get version from plugin.json
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: 'plugin.json'
+          prop_path: 'Version'
+
+      - name: Install dependencies and zip
+        run: |
+          npm install
+          ZIP_NAME="Flow.Launcher.Plugin.CompetitiveSearch.zip"
+          zip -r $ZIP_NAME . -x '*.git*'
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v1
+        with:
+          files: Flow.Launcher.Plugin.CompetitiveSearch.zip
+          tag_name: "v${{ steps.version.outputs.prop }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
