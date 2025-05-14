@@ -27,10 +27,12 @@ jobs:
           path: 'plugin.json'
           prop_path: 'Version'
 
+      - run: echo "Releasing version ${{ steps.version.outputs.prop }}"    
+
       - name: Install dependencies and zip
         run: |
           npm install
-          ZIP_NAME="Flow.Launcher.Plugin.CompetitiveSearch.zip"
+          ZIP_NAME="Flow.Launcher.Plugin.CompetitiveSearch-v${{ steps.version.outputs.prop }}.zip"
           zip -r $ZIP_NAME . -x '*.git*'
 
       - name: Publish to GitHub Releases
